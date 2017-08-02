@@ -1,0 +1,172 @@
+FORMAT: 1A
+HOST: https://private-e56b3-healboynest.apiary-mock.com/api/v1
+
+# HealboyNest
+
+Nest is the restful API for Healboy Apps
+
+## Endpoints [/]
+
+### List [GET]
+
++ Response 200 (text/html)
+    + Body
+            
+            <h1>HEALBOY NEST RESTFUL API</h1>
+            <ul>
+                <li><a href="https://private-e56b3-healboynest.apiary-mock.com/api/v1">Endpoint Lists (this page)</a></li>
+                <li><a href="https://private-e56b3-healboynest.apiary-mock.com/api/v1/services/types">GET /api/v1/services/types</a></li>
+                <li><a href="https://private-e56b3-healboynest.apiary-mock.com/api/v1/vendors">GET /api/v1/vendors</a></li>
+                <li><a href="https://private-e56b3-healboynest.apiary-mock.com/api/v1/vendors/1">GET /api/v1/vendors/{vendor_id}</a></li>
+                <li><a href="https://private-e56b3-healboynest.apiary-mock.com/api/v1/auth/login">POST /api/v1/auth/login</a></li>
+            </ul>
+           
+
+
+## Users [/auth]
+
+### User Login [POST /auth/login]
+
++ Request (application/json)
+
++ Attributes
+    + data (object)
+        + attributes (UserAuth)
+
++ Response 200 (application/json)
+    + Attributes 
+        + meta (object)
+            - message: `login success`
+            - error: false
++ Response 401 (application/json)
+    + Attributes
+        + meta (object)
+            - message: `not authorized`
+            - error: true
+            
+## Services [/services]
+
+### List all Service Types [GET /services/types]
+
++ Request (application/json)
+
++ Response 200 (application/json)
+    + Attributes
+        + meta (object)
+            - count: 10 (number)
+            - total: 10 (number)
+        + data (array[Computer, Electronics, Gadget, Car, Bicycle])
+            
+
+## Vendors [/vendors]
+
+### List all Vendors [GET]
+
++ Request (application/json)
+
++ Response 200 (application/json)
+    + Attributes
+        + meta (object)
+            - count: `5` (number)
+            - total: `5` (number)
+
+        + data (array[VendorResponse])
+
+### Get a Vendor [GET /vendors/{vendor_id}]
+
++ Request (application/vnd.api+json)
+
++ Response 200 (application/json)
+    + Attributes
+        + meta (object)
+            - count: `10` (number)
+            - total: `10` (number)
+
+        + data (VendorResponse)
+
+
+
+## Data Structure
+
+### UserAuth
+- `username`: `demo` (string, required)
+- `password`: `demo` (string, required)
+
+### Computer
+- `id`: 1 (number)
+- `type`: `computer` (string)
+- `attributes` (object)
+    - `service_name`: `Computer` (string)
+
+### Electronics
+- `id`: 2 (number)
+- `type`: `electronics` (string)
+- `attributes` (object)
+    - `service_name`: `Electronics` (string)
+
+### Gadget
+- `id`: 3 (number)
+- `type`: `gadget` (string)
+- `attributes` (object)
+    - `service_name`: `Gadget & Mobile` (string)
+
+### Car
+- `id`: 4 (number)
+- `type`: `car` (string)
+- `attributes` (object)
+    - `service_name`: `Car` (string)
+
+### Bicycle
+- `id`: 5 (number)
+- `type`: `bicycle` (string)
+- `attributes` (object)
+    - `service_name`: `Bicycle` (string)
+    
+### Location
+- `lat`: `-25.363` (number)
+- `lng`: `131.044` (number)
+
+
+### Vendor
+- `prefix`: `toko` (string)
+- `preferred_name`: `Marina Gibson` (string)
+- `legal_name`: `Marina Joanny Gibson` (string)
+- `suffix`: `I` (string)
+- `vendor_types` (array[string])
+    - vendor
+    - agent
+    - retail
+    - others
+- `services` (enum)
+    - (Computer)
+    - (Electronics)
+    - (Gadget)
+    - (Car)
+    - (Bicycle)
+
+- `is_pre_approved`: `true` (boolean)
+- `status`: `1` (number)
+- `stage`: `prospect` (enum[string], nullable)
+    - prospect
+    - nurture
+    - lead
+    - client
+    - past_client
+
+### VendorResponse
+- type: `vendors` (string)
+- id: `1` (string)
+- attributes (Vendor)
+    - `profile_photo` (string)
+      path to uploaded profile photo
+    - `reputation` (number)
+    - `created_at`: `2017-06-23 20:27:16` (string, nullable)
+    - `updated_at`: `2017-06-23 20:27:16` (string, nullable)
+    - `last_active_date`: `2017-06-23 20:27:16` (string, nullable)
+    - `primary_email`: `jhodkiewicz@yahoo.com` (string, nullable)
+    - `primary_phone`: `+1 514-794-7832` (string)
+    - `initial_location` (Location)
+    
+- links (object)
+    - self: `http://localhost:3000/api/v1/vendors/1`
+
